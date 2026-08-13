@@ -1,0 +1,66 @@
+name: Weekly eCFR freshness check
+
+# Runs every Monday at 12:00 UTC (~8 AM ET) and on demand.
+# Compares Title 38's latest amendment date on eCFR against the
+# "lastAmended" date embedded in index.html. If they differ, it
+# opens an issue in this repo so you know the catalog needs a rebuild.
+# It never changes the site by itself — regulation text should not
+# update without a human looking at it.
+
+on:
+  schedule:
+    - cron: "0 12 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compare eCFR amendment date with embedded catalog date
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          LATEST=$(curl -fsSL "https://www.ecfr.gov/api/versioner/v1/titles.json" \
+            | jq -r '.titles[] | select(.number == 38) | .latest_amended_on')
+
+          EMBEDDED=$(grep -o '"lastAmended":"[0-9-]*"' index.html | head -1 | cut -d'"' -f4)
+
+          echo "eCFR Title 38 last amended: $LATEST"
+          echo "Catalog built against:      $EMBEDDED"
+
+          if [ -z "$LATEST" ] || [ -z "$EMBEDDED" ]; then
+            echo "::error::Could not read one of the dates — check the API response or index.html format."
+            exit 1
+          fi
+
+          if [ "$LATEST" != "$EMBEDDED" ]; then
+            TITLE="Title 38 amended on eCFR ($LATEST) — catalog is stale ($EMBEDDED)"
+            # Don't open a duplicate if an identical alert is already open
+            EXISTING=$(gh issue list --state open --search "\"$TITLE\" in:title" --json number --jq 'length')
+            if [ "$EXISTING" = "0" ]; then
+              gh issue create \
+                --title "$TITLE" \
+                --body "eCFR reports Title 38 was last amended on **$LATEST**, but the catalog embedded in index.html was built against **$EMBEDDED**.
+
+**What to do:**
+1. Check what changed: https://www.ecfr.gov/recent-changes?search%5Bhierarchy%5D%5Btitle%5D=38
+2. If Part 4 was touched, regenerate the catalog JSON and rebuild index.html.
+3. If the amendment is elsewhere in Title 38 (not Part 4), the site text is still accurate — close this issue and update the lastAmended date on the next rebuild.
+
+Note: this check fires on any Title 38 amendment, so some alerts will be false positives for Part 4 specifically. Better a false alarm than silently stale regulation text.
+
+_Opened automatically by .github/workflows/check-ecfr.yml_"
+            else
+              echo "Alert issue already open — not duplicating."
+            fi
+          else
+            echo "Catalog is current. Nothing to do."
+          fi

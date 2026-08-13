@@ -125,12 +125,22 @@ input,select{font:inherit;color:inherit;letter-spacing:inherit}
   padding:6px 14px 6px 10px;border-radius:980px;margin-bottom:22px;box-shadow:var(--sh-1);
 }
 .dot{width:7px;height:7px;border-radius:50%;background:#30D158;flex-shrink:0;box-shadow:0 0 0 3px rgba(48,209,88,.18)}
+.lockup{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+.lockmark{
+  width:58px;height:58px;border-radius:15px;flex-shrink:0;
+  background:linear-gradient(135deg,#0A84FF,#BF5AF2);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(95,92,230,.35);
+}
+.lockmark svg{width:32px;height:32px;color:#fff}
 .hero h1{
-  font-size:clamp(40px,6.8vw,72px);line-height:1.03;letter-spacing:-.035em;font-weight:800;
-  max-width:17ch;margin:0 auto;
+  font-size:clamp(52px,9vw,96px);line-height:1;letter-spacing:-.045em;font-weight:800;
+}
+.tagline{
+  margin:20px auto 0;font-size:clamp(21px,3vw,28px);font-weight:700;letter-spacing:-.026em;color:var(--ink);
 }
 .hero .sub{
-  margin:22px auto 0;max-width:54ch;font-size:19.5px;line-height:1.5;color:var(--ink-2);letter-spacing:-.013em;
+  margin:14px auto 0;max-width:54ch;font-size:18px;line-height:1.55;color:var(--ink-2);letter-spacing:-.013em;
 }
 .herostats{
   display:flex;justify-content:center;gap:12px;margin:36px auto 0;flex-wrap:wrap;max-width:720px;
@@ -141,6 +151,12 @@ input,select{font:inherit;color:inherit;letter-spacing:inherit}
 }
 .hstat b{display:block;font-size:27px;font-weight:800;letter-spacing:-.028em}
 .hstat span{display:block;font-size:11.5px;font-weight:600;color:var(--ink-3);margin-top:4px;letter-spacing:.05em}
+
+.fresh{
+  display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:12.5px;font-weight:600;
+  color:var(--ink-2);background:var(--surface);border:1px solid var(--line-soft);
+  padding:6px 14px 6px 11px;border-radius:980px;box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
 
 /* ---------- search ---------- */
 .searchwrap{position:relative;max-width:640px;margin:32px auto 0}
@@ -185,10 +201,10 @@ input,select{font:inherit;color:inherit;letter-spacing:inherit}
 .baseL{stroke:var(--skin);fill:none;stroke-linecap:round;stroke-linejoin:round;transition:opacity .35s var(--ease)}
 #figure.int .baseF,#figure.int .baseL{opacity:.4}
 #figure .region{cursor:pointer;color:var(--blue)}
-#figure .hitS{stroke:currentColor;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .25s var(--ease)}
-#figure .hitF{fill:currentColor;stroke:none;opacity:0;transition:opacity .25s var(--ease)}
-#figure .region:hover .hitS,#figure .region:hover .hitF{opacity:.72}
-#figure .region.active .hitS,#figure .region.active .hitF{opacity:1}
+#figure .hitS{stroke:currentColor;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.34;transition:opacity .25s var(--ease)}
+#figure .hitF{fill:currentColor;stroke:none;opacity:.34;transition:opacity .25s var(--ease)}
+#figure .region:hover .hitS,#figure .region:hover .hitF{opacity:.75}
+#figure .region.active .hitS,#figure .region.active .hitF{opacity:.95}
 #figure .region.active{filter:drop-shadow(0 0 12px currentColor)}
 #figure .organ{fill:currentColor;opacity:.88;transition:opacity .25s var(--ease)}
 #figure .organLn{stroke:currentColor;fill:none;stroke-linecap:round;opacity:.88;transition:opacity .25s var(--ease)}
@@ -260,13 +276,14 @@ input,select{font:inherit;color:inherit;letter-spacing:inherit}
 }
 .scrim.on{opacity:1;pointer-events:auto}
 .drawer{
-  position:fixed;top:10px;right:10px;bottom:10px;width:min(560px,calc(100% - 20px));z-index:100;
+  position:fixed;top:50%;left:50%;width:min(700px,94vw);height:min(84vh,820px);z-index:100;
   background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-xl);
   box-shadow:var(--sh-2);
-  transform:translateX(calc(100% + 20px));transition:transform .45s var(--ease);
+  transform:translate(-50%,-46%) scale(.96);opacity:0;pointer-events:none;
+  transition:transform .4s var(--ease),opacity .3s var(--ease);
   display:flex;flex-direction:column;overflow:hidden;
 }
-.drawer.on{transform:none}
+.drawer.on{transform:translate(-50%,-50%) scale(1);opacity:1;pointer-events:auto}
 .dhead{
   padding:18px 20px 15px;border-bottom:1px solid var(--line-soft);display:flex;align-items:flex-start;gap:12px;
   flex-shrink:0;
@@ -407,6 +424,44 @@ button.chip:hover{background:var(--blue-tint);color:var(--blue)}
 .scard p{font-size:14.5px;line-height:1.56;color:var(--ink-2);flex:1}
 .scard .btn{flex:none;width:100%}
 
+/* ---------- figure panel header + labels ---------- */
+.figtop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.figtitle{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+#figure .lbls .lbl{font-size:13px;font-weight:600;fill:var(--ink-2);letter-spacing:-.01em}
+#figure .lbls .ldr{stroke:var(--line);stroke-width:1.2}
+#figure .lbls .ldot{fill:currentColor}
+#figure .lblg{cursor:pointer;color:var(--ink-3)}
+#figure .lblg:hover .lbl{fill:var(--ink);font-weight:700}
+@media(max-width:479px){ #figure .lbls .lbl{font-size:15px} }
+
+/* ---------- quick chips under search ---------- */
+.quickchips{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;margin-top:13px}
+.quickchips .qlbl{font-size:12.5px;font-weight:600;color:var(--ink-3)}
+.quickchips .chip{background:var(--surface);border:1px solid var(--line-soft);box-shadow:0 1px 3px rgba(0,0,0,.04)}
+
+/* ---------- floating support ---------- */
+.fab{position:fixed;right:18px;bottom:18px;z-index:70;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.fabbtn{
+  display:flex;align-items:center;gap:7px;height:40px;padding:0 15px 0 12px;border-radius:980px;
+  background:var(--surface);border:1px solid var(--line-soft);box-shadow:var(--sh-1);
+  font-size:13.5px;font-weight:700;color:var(--ink);transition:transform .2s var(--ease),box-shadow .2s var(--ease);
+}
+.fabbtn:hover{transform:translateY(-2px);box-shadow:var(--sh-2)}
+.fabpop{
+  width:min(280px,calc(100vw - 36px));background:var(--surface);border:1px solid var(--line-soft);
+  border-radius:var(--r-l);box-shadow:var(--sh-2);padding:18px;position:relative;
+  display:flex;flex-direction:column;gap:10px;
+}
+.fabpop b{font-size:15.5px;letter-spacing:-.018em}
+.fabpop p{font-size:13px;line-height:1.5;color:var(--ink-2)}
+.fabpop .btn{height:40px;font-size:14px}
+.fabx{
+  position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;
+  background:var(--fill);color:var(--ink-2);font-size:12px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+}
+.fab.hidden{display:none}
+
 /* ---------- footer ---------- */
 footer{border-top:1px solid var(--line-soft);padding:44px 0 60px;margin-top:44px}
 .fgrid{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--ink-3);line-height:1.8}
@@ -440,16 +495,17 @@ footer{border-top:1px solid var(--line-soft);padding:44px 0 60px;margin-top:44px
 }
 @media(max-width:560px){
   .hstat{min-width:calc(50% - 6px);flex:1 1 calc(50% - 6px)}
-  .drawer{width:auto;left:0;right:0;bottom:0;top:auto;height:92dvh;border-radius:var(--r-xl) var(--r-xl) 0 0;transform:translateY(100%)}
+  .drawer{width:100%;left:0;right:0;bottom:0;top:auto;height:92dvh;border-radius:var(--r-xl) var(--r-xl) 0 0;transform:translateY(100%);opacity:1}
   .drawer.on{transform:none}
   .cardlist{grid-template-columns:1fr}
+  .fab{right:12px;bottom:12px}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.01ms!important;transition-duration:.01ms!important}
   html{scroll-behavior:auto}
 }
 @media print{
-  .nav,.dfoot,.scrim,footer,.searchwrap,#toast,.seg,.orb{display:none!important}
+  .nav,.dfoot,.scrim,footer,.searchwrap,#toast,.seg,.orb,.fab,.lbls{display:none!important}
   .drawer{position:static;transform:none;width:100%;box-shadow:none;border:0}
   body{background:#fff;color:#000;font-size:11pt}
   .crit,.note,.srcbox{background:#fff;border:1px solid #ccc}
@@ -478,15 +534,27 @@ footer{border-top:1px solid var(--line-soft);padding:44px 0 60px;margin-top:44px
   <section class="hero">
     <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
     <div class="wrap">
-      <div class="eyebrow"><span class="dot"></span> <span id="freshness">Current with eCFR</span></div>
-      <h1>Every rating criterion.<br><span class="grad">In plain sight.</span></h1>
+      <div class="lockup">
+        <span class="lockmark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6.4v5.2c0 4.6 3.1 7.9 7.5 9.4 4.4-1.5 7.5-4.8 7.5-9.4V6.4L12 3Z"/></svg></span>
+        <h1 class="grad">ClaimAtlas</h1>
+      </div>
+      <p class="tagline">Every rating criterion. In plain sight.</p>
       <p class="sub">The complete VA Schedule for Rating Disabilities — 38 CFR Part 4 — organized by body, searchable in the government's own words, and linked back to the source on every code.</p>
 
       <div class="searchwrap">
         <div class="searchbox">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
-          <input id="q" type="search" placeholder="Search a code, condition, or symptom — try “tinnitus” or 5237" autocomplete="off" spellcheck="false" aria-label="Search the rating schedule">
+          <input id="q" type="search" placeholder="Search a code, condition, or symptom" autocomplete="off" spellcheck="false" aria-label="Search the rating schedule">
           <button class="clearbtn" id="qclear" aria-label="Clear search">✕</button>
+        </div>
+        <div class="quickchips" id="quickchips">
+          <span class="qlbl">Try:</span>
+          <button class="chip" data-q="tinnitus">Tinnitus</button>
+          <button class="chip" data-q="post-traumatic stress">PTSD</button>
+          <button class="chip" data-q="sleep apnea">Sleep apnea</button>
+          <button class="chip" data-q="knee">Knee</button>
+          <button class="chip" data-q="lumbosacral">Back</button>
+          <button class="chip" data-q="migraine">Migraines</button>
         </div>
       </div>
 
@@ -496,6 +564,7 @@ footer{border-top:1px solid var(--line-soft);padding:44px 0 60px;margin-top:44px
         <div class="hstat"><b class="tnum" style="color:#FF9500">23</b><span>BODY REGIONS</span></div>
         <div class="hstat"><b style="color:#30D158">$0</b><span>FOREVER</span></div>
       </div>
+      <div class="fresh"><span class="dot"></span><span id="freshness">Current with eCFR</span></div>
     </div>
   </section>
 
@@ -504,108 +573,152 @@ footer{border-top:1px solid var(--line-soft);padding:44px 0 60px;margin-top:44px
       <div class="sechead">
         <div>
           <h2>Start where it hurts.</h2>
-          <p id="mapHint">Tap a region on the body, or flip to Interior for organs and systems — mental health, heart, lungs, hearing, digestion.</p>
-        </div>
-        <div class="seg" role="tablist" aria-label="Figure view">
-          <button id="segExt" role="tab" aria-selected="true">Exterior</button>
-          <button id="segInt" role="tab" aria-selected="false">Interior</button>
+          <p id="mapHint">Tap any zone or label. Exterior is joints, spine, and limbs; Interior is organs and systems — mental health, heart, lungs, hearing, digestion.</p>
         </div>
       </div>
 
       <div class="maproot">
         <div class="figpanel">
-          <svg id="figure" viewBox="0 0 300 640" role="img" aria-label="Interactive body figure. Select a region to see its diagnostic codes.">
-            <!-- ============ base silhouette ============ -->
-            <g id="baseFig">
-              <ellipse class="baseF" cx="150" cy="50" rx="26" ry="30"/>
-              <rect class="baseF" x="139" y="74" width="22" height="26" rx="10"/>
-              <path class="baseF" d="M150,94 C132,94 116,97 107,105 C97,113 92,126 91,142 L88,220 C87,240 93,252 103,258 L100,306 C99,316 106,322 116,322 L184,322 C194,322 201,316 200,306 L197,258 C207,252 213,240 212,220 L209,142 C208,126 203,113 193,105 C184,97 168,94 150,94 Z"/>
-              <path class="baseL" stroke-width="24" d="M97,114 L80,202 L66,300"/>
-              <path class="baseL" stroke-width="24" d="M203,114 L220,202 L234,300"/>
-              <ellipse class="baseF" cx="63" cy="322" rx="11" ry="15" transform="rotate(12 63 322)"/>
-              <ellipse class="baseF" cx="237" cy="322" rx="11" ry="15" transform="rotate(-12 237 322)"/>
-              <path class="baseL" stroke-width="33" d="M129,320 L125,442"/>
-              <path class="baseL" stroke-width="33" d="M171,320 L175,442"/>
-              <path class="baseL" stroke-width="25" d="M125,442 L123,556"/>
-              <path class="baseL" stroke-width="25" d="M175,442 L177,556"/>
-              <rect class="baseF" x="96" y="562" width="46" height="22" rx="11"/>
-              <rect class="baseF" x="158" y="562" width="46" height="22" rx="11"/>
+          <div class="figtop">
+            <span class="figtitle">Body map</span>
+            <div class="seg" role="tablist" aria-label="Figure view">
+              <button id="segExt" role="tab" aria-selected="true">Exterior</button>
+              <button id="segInt" role="tab" aria-selected="false">Interior</button>
+            </div>
+          </div>
+          <svg id="figure" viewBox="0 0 500 640" role="img" aria-label="Interactive body figure. Select a region to see its diagnostic codes.">
+            <defs>
+              <filter id="goo" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="b"/>
+                <feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9"/>
+              </filter>
+            </defs>
+
+            <g transform="translate(100,0)">
+              <!-- ===== base silhouette: goo filter fuses the parts into one fluid form ===== -->
+              <g id="baseFig" filter="url(#goo)">
+                <ellipse class="baseF" cx="150" cy="50" rx="26" ry="30"/>
+                <rect class="baseF" x="138" y="72" width="24" height="30" rx="11"/>
+                <path class="baseF" d="M150,94 C132,94 116,97 107,105 C97,113 92,126 91,142 L88,220 C87,240 93,252 103,258 L100,306 C99,316 106,322 116,322 L184,322 C194,322 201,316 200,306 L197,258 C207,252 213,240 212,220 L209,142 C208,126 203,113 193,105 C184,97 168,94 150,94 Z"/>
+                <circle class="baseF" cx="102" cy="118" r="15"/>
+                <circle class="baseF" cx="198" cy="118" r="15"/>
+                <path class="baseL" stroke-width="24" d="M99,116 L81,202 L67,300"/>
+                <path class="baseL" stroke-width="24" d="M201,116 L219,202 L233,300"/>
+                <ellipse class="baseF" cx="64" cy="322" rx="11" ry="16" transform="rotate(12 64 322)"/>
+                <ellipse class="baseF" cx="236" cy="322" rx="11" ry="16" transform="rotate(-12 236 322)"/>
+                <circle class="baseF" cx="129" cy="320" r="17"/>
+                <circle class="baseF" cx="171" cy="320" r="17"/>
+                <path class="baseL" stroke-width="33" d="M129,320 L125,440"/>
+                <path class="baseL" stroke-width="33" d="M171,320 L175,440"/>
+                <circle class="baseF" cx="125" cy="441" r="14"/>
+                <circle class="baseF" cx="175" cy="441" r="14"/>
+                <path class="baseL" stroke-width="25" d="M125,442 L123,556"/>
+                <path class="baseL" stroke-width="25" d="M175,442 L177,556"/>
+                <path class="baseF" d="M97,560 L140,560 A11,11 0 0 1 140,584 L108,584 A12,12 0 0 1 97,560 Z"/>
+                <path class="baseF" d="M203,560 L160,560 A11,11 0 0 0 160,584 L192,584 A12,12 0 0 0 203,560 Z"/>
+              </g>
+
+              <!-- ===== exterior zones: always tinted, brighten on hover ===== -->
+              <g id="gExt">
+                <g class="region" data-region="Spine and Back" tabindex="0" role="button" aria-label="Spine and Back">
+                  <rect class="hitF" x="137" y="102" width="26" height="198" rx="13"/>
+                </g>
+                <g class="region" data-region="Shoulder and Arm" tabindex="0" role="button" aria-label="Shoulder and Arm">
+                  <path class="hitS" stroke-width="27" d="M100,115 L81,202"/>
+                  <path class="hitS" stroke-width="27" d="M200,115 L219,202"/>
+                  <circle class="hitF" cx="102" cy="118" r="16"/>
+                  <circle class="hitF" cx="198" cy="118" r="16"/>
+                </g>
+                <g class="region" data-region="Elbow and Forearm" tabindex="0" role="button" aria-label="Elbow and Forearm">
+                  <path class="hitS" stroke-width="26" d="M81,204 L67,300"/>
+                  <path class="hitS" stroke-width="26" d="M219,204 L233,300"/>
+                </g>
+                <g class="region" data-region="Wrist and Hand" tabindex="0" role="button" aria-label="Wrist and Hand">
+                  <ellipse class="hitF" cx="64" cy="324" rx="14" ry="19" transform="rotate(12 64 324)"/>
+                  <ellipse class="hitF" cx="236" cy="324" rx="14" ry="19" transform="rotate(-12 236 324)"/>
+                </g>
+                <g class="region" data-region="Hip and Thigh" tabindex="0" role="button" aria-label="Hip and Thigh">
+                  <path class="hitS" stroke-width="36" d="M129,320 L125,438"/>
+                  <path class="hitS" stroke-width="36" d="M171,320 L175,438"/>
+                </g>
+                <g class="region" data-region="Knee and Leg" tabindex="0" role="button" aria-label="Knee and Leg">
+                  <path class="hitS" stroke-width="28" d="M125,440 L123,558"/>
+                  <path class="hitS" stroke-width="28" d="M175,440 L177,558"/>
+                </g>
+                <g class="region" data-region="Ankle and Foot" tabindex="0" role="button" aria-label="Ankle and Foot">
+                  <rect class="hitF" x="93" y="556" width="52" height="32" rx="14"/>
+                  <rect class="hitF" x="155" y="556" width="52" height="32" rx="14"/>
+                </g>
+              </g>
+
+              <!-- ===== interior organs ===== -->
+              <g id="gInt" style="display:none">
+                <g class="region" data-region="Brain and Nerves" tabindex="0" role="button" aria-label="Brain and Nerves">
+                  <circle class="hitpad" cx="150" cy="46" r="26"/>
+                  <path class="organ" d="M150,28 C136,28 127,36 127,47 C127,56 134,63 143,64 L143,53 L150,53 L150,64 L157,64 C166,63 173,56 173,47 C173,36 164,28 150,28 Z"/>
+                </g>
+                <g class="region" data-region="Eyes and Vision" tabindex="0" role="button" aria-label="Eyes and Vision">
+                  <rect class="hitpad" x="130" y="50" width="40" height="20" rx="10"/>
+                  <circle class="organ" cx="141" cy="60" r="4.5"/>
+                  <circle class="organ" cx="159" cy="60" r="4.5"/>
+                </g>
+                <g class="region" data-region="Ears and Hearing" tabindex="0" role="button" aria-label="Ears and Hearing">
+                  <circle class="hitpad" cx="124" cy="52" r="11"/>
+                  <circle class="hitpad" cx="176" cy="52" r="11"/>
+                  <circle class="organ" cx="124" cy="52" r="5"/>
+                  <circle class="organ" cx="176" cy="52" r="5"/>
+                </g>
+                <g class="region" data-region="Endocrine" tabindex="0" role="button" aria-label="Endocrine">
+                  <rect class="hitpad" x="134" y="76" width="32" height="22" rx="11"/>
+                  <ellipse class="organ" cx="144" cy="87" rx="5" ry="7"/>
+                  <ellipse class="organ" cx="156" cy="87" rx="5" ry="7"/>
+                </g>
+                <g class="region" data-region="Lungs and Respiratory" tabindex="0" role="button" aria-label="Lungs and Respiratory">
+                  <path class="organ" d="M136,120 C121,124 112,141 113,163 C114,183 123,196 136,198 C143,199 146,193 146,182 L146,136 C146,126 143,118 136,120 Z"/>
+                  <path class="organ" d="M164,120 C179,124 188,141 187,163 C186,183 177,196 164,198 C157,199 154,193 154,182 L154,136 C154,126 157,118 164,120 Z"/>
+                </g>
+                <g class="region" data-region="Heart and Vascular" tabindex="0" role="button" aria-label="Heart and Vascular">
+                  <circle class="hitpad" cx="152" cy="158" r="24"/>
+                  <path class="organ" d="M152,144 C146,136 135,138 133,148 C131,159 141,171 152,178 C163,171 172,158 169,148 C166,138 158,136 152,144 Z"/>
+                </g>
+                <g class="region" data-region="Digestive and Abdomen" tabindex="0" role="button" aria-label="Digestive and Abdomen">
+                  <path class="organ" d="M130,204 C122,208 120,218 122,230 C124,244 132,254 146,257 L158,258 C170,257 178,248 179,236 C180,222 174,210 162,205 C152,201 138,200 130,204 Z"/>
+                </g>
+                <g class="region" data-region="Kidney and Genitourinary" tabindex="0" role="button" aria-label="Kidney and Genitourinary">
+                  <circle class="hitpad" cx="112" cy="226" r="17"/>
+                  <circle class="hitpad" cx="188" cy="226" r="17"/>
+                  <ellipse class="organ" cx="112" cy="226" rx="9" ry="14" transform="rotate(-12 112 226)"/>
+                  <ellipse class="organ" cx="188" cy="226" rx="9" ry="14" transform="rotate(12 188 226)"/>
+                </g>
+                <g class="region" data-region="Reproductive and Breast" tabindex="0" role="button" aria-label="Reproductive and Breast">
+                  <circle class="hitpad" cx="150" cy="286" r="21"/>
+                  <ellipse class="organ" cx="150" cy="286" rx="16" ry="12"/>
+                </g>
+              </g>
             </g>
 
-            <!-- ============ exterior hit zones ============ -->
-            <g id="gExt">
-              <g class="region" data-region="Spine and Back" tabindex="0" role="button" aria-label="Spine and Back">
-                <rect class="hitF" x="136" y="102" width="28" height="200" rx="14"/>
-              </g>
-              <g class="region" data-region="Shoulder and Arm" tabindex="0" role="button" aria-label="Shoulder and Arm">
-                <path class="hitS" stroke-width="27" d="M99,113 L80,202"/>
-                <path class="hitS" stroke-width="27" d="M201,113 L220,202"/>
-              </g>
-              <g class="region" data-region="Elbow and Forearm" tabindex="0" role="button" aria-label="Elbow and Forearm">
-                <path class="hitS" stroke-width="26" d="M80,202 L66,300"/>
-                <path class="hitS" stroke-width="26" d="M220,202 L234,300"/>
-              </g>
-              <g class="region" data-region="Wrist and Hand" tabindex="0" role="button" aria-label="Wrist and Hand">
-                <ellipse class="hitF" cx="63" cy="324" rx="14" ry="19" transform="rotate(12 63 324)"/>
-                <ellipse class="hitF" cx="237" cy="324" rx="14" ry="19" transform="rotate(-12 237 324)"/>
-              </g>
-              <g class="region" data-region="Hip and Thigh" tabindex="0" role="button" aria-label="Hip and Thigh">
-                <path class="hitS" stroke-width="36" d="M129,318 L125,442"/>
-                <path class="hitS" stroke-width="36" d="M171,318 L175,442"/>
-              </g>
-              <g class="region" data-region="Knee and Leg" tabindex="0" role="button" aria-label="Knee and Leg">
-                <path class="hitS" stroke-width="28" d="M125,442 L123,558"/>
-                <path class="hitS" stroke-width="28" d="M175,442 L177,558"/>
-              </g>
-              <g class="region" data-region="Ankle and Foot" tabindex="0" role="button" aria-label="Ankle and Foot">
-                <rect class="hitF" x="92" y="556" width="54" height="32" rx="14"/>
-                <rect class="hitF" x="154" y="556" width="54" height="32" rx="14"/>
-              </g>
+            <!-- ===== exterior labels (root coords; figure occupies x 100–400) ===== -->
+            <g id="lblExt" class="lbls">
+              <g class="lblg" data-region="Spine and Back"><line class="ldr" x1="96" y1="96" x2="246" y2="106"/><circle class="ldot" cx="246" cy="106" r="3"/><text class="lbl" x="92" y="100" text-anchor="end">Spine &amp; Back</text></g>
+              <g class="lblg" data-region="Hip and Thigh"><line class="ldr" x1="96" y1="378" x2="222" y2="382"/><circle class="ldot" cx="222" cy="382" r="3"/><text class="lbl" x="92" y="382" text-anchor="end">Hip &amp; Thigh</text></g>
+              <g class="lblg" data-region="Knee and Leg"><line class="ldr" x1="96" y1="498" x2="220" y2="502"/><circle class="ldot" cx="220" cy="502" r="3"/><text class="lbl" x="92" y="502" text-anchor="end">Knee &amp; Leg</text></g>
+              <g class="lblg" data-region="Shoulder and Arm"><line class="ldr" x1="404" y1="142" x2="316" y2="152"/><circle class="ldot" cx="316" cy="152" r="3"/><text class="lbl" x="408" y="146">Shoulder &amp; Arm</text></g>
+              <g class="lblg" data-region="Elbow and Forearm"><line class="ldr" x1="404" y1="248" x2="330" y2="254"/><circle class="ldot" cx="330" cy="254" r="3"/><text class="lbl" x="408" y="252">Elbow &amp; Forearm</text></g>
+              <g class="lblg" data-region="Wrist and Hand"><line class="ldr" x1="404" y1="322" x2="342" y2="326"/><circle class="ldot" cx="342" cy="326" r="3"/><text class="lbl" x="408" y="326">Wrist &amp; Hand</text></g>
+              <g class="lblg" data-region="Ankle and Foot"><line class="ldr" x1="404" y1="572" x2="308" y2="576"/><circle class="ldot" cx="308" cy="576" r="3"/><text class="lbl" x="408" y="576">Ankle &amp; Foot</text></g>
             </g>
 
-            <!-- ============ interior organs ============ -->
-            <g id="gInt" style="display:none">
-              <g class="region" data-region="Brain and Nerves" tabindex="0" role="button" aria-label="Brain and Nerves">
-                <circle class="hitpad" cx="150" cy="46" r="26"/>
-                <path class="organ" d="M150,30 C138,30 130,37 130,47 C130,55 136,61 144,62 L144,52 L150,52 L150,62 L156,62 C164,61 170,55 170,47 C170,37 162,30 150,30 Z"/>
-              </g>
-              <g class="region" data-region="Eyes and Vision" tabindex="0" role="button" aria-label="Eyes and Vision">
-                <rect class="hitpad" x="132" y="52" width="36" height="18" rx="9"/>
-                <circle class="organ" cx="141" cy="61" r="4"/>
-                <circle class="organ" cx="159" cy="61" r="4"/>
-              </g>
-              <g class="region" data-region="Ears and Hearing" tabindex="0" role="button" aria-label="Ears and Hearing">
-                <circle class="hitpad" cx="126" cy="54" r="10"/>
-                <circle class="hitpad" cx="174" cy="54" r="10"/>
-                <circle class="organ" cx="126" cy="54" r="4.5"/>
-                <circle class="organ" cx="174" cy="54" r="4.5"/>
-              </g>
-              <g class="region" data-region="Endocrine" tabindex="0" role="button" aria-label="Endocrine">
-                <rect class="hitpad" x="136" y="76" width="28" height="20" rx="10"/>
-                <ellipse class="organ" cx="145" cy="86" rx="4.5" ry="6.5"/>
-                <ellipse class="organ" cx="155" cy="86" rx="4.5" ry="6.5"/>
-              </g>
-              <g class="region" data-region="Lungs and Respiratory" tabindex="0" role="button" aria-label="Lungs and Respiratory">
-                <path class="organ" d="M137,122 C124,126 116,141 117,162 C118,181 126,193 137,195 C143,196 146,190 146,180 L146,137 C146,128 143,120 137,122 Z"/>
-                <path class="organ" d="M163,122 C176,126 184,141 183,162 C182,181 174,193 163,195 C157,196 154,190 154,180 L154,137 C154,128 157,120 163,122 Z"/>
-              </g>
-              <g class="region" data-region="Heart and Vascular" tabindex="0" role="button" aria-label="Heart and Vascular">
-                <circle class="hitpad" cx="152" cy="158" r="22"/>
-                <path class="organ" d="M152,146 C147,139 137,140 135,149 C133,159 142,170 152,176 C162,170 170,158 167,149 C164,140 156,139 152,146 Z"/>
-              </g>
-              <g class="region" data-region="Digestive and Abdomen" tabindex="0" role="button" aria-label="Digestive and Abdomen">
-                <rect class="organ" x="128" y="202" width="44" height="52" rx="17"/>
-              </g>
-              <g class="region" data-region="Kidney and Genitourinary" tabindex="0" role="button" aria-label="Kidney and Genitourinary">
-                <circle class="hitpad" cx="117" cy="224" r="16"/>
-                <circle class="hitpad" cx="183" cy="224" r="16"/>
-                <ellipse class="organ" cx="117" cy="224" rx="8" ry="13" transform="rotate(-12 117 224)"/>
-                <ellipse class="organ" cx="183" cy="224" rx="8" ry="13" transform="rotate(12 183 224)"/>
-              </g>
-              <g class="region" data-region="Reproductive and Breast" tabindex="0" role="button" aria-label="Reproductive and Breast">
-                <circle class="hitpad" cx="150" cy="284" r="20"/>
-                <ellipse class="organ" cx="150" cy="284" rx="15" ry="11"/>
-              </g>
+            <!-- ===== interior labels ===== -->
+            <g id="lblInt" class="lbls" style="display:none">
+              <g class="lblg" data-region="Brain and Nerves"><line class="ldr" x1="404" y1="42" x2="272" y2="46"/><circle class="ldot" cx="272" cy="46" r="3"/><text class="lbl" x="408" y="46">Brain &amp; Nerves</text></g>
+              <g class="lblg" data-region="Eyes and Vision"><line class="ldr" x1="96" y1="60" x2="232" y2="61"/><circle class="ldot" cx="232" cy="61" r="3"/><text class="lbl" x="92" y="64">Eyes</text></g>
+              <g class="lblg" data-region="Ears and Hearing"><line class="ldr" x1="404" y1="66" x2="282" y2="56"/><circle class="ldot" cx="282" cy="56" r="3"/><text class="lbl" x="408" y="70">Ears &amp; Hearing</text></g>
+              <g class="lblg" data-region="Endocrine"><line class="ldr" x1="96" y1="90" x2="238" y2="88"/><circle class="ldot" cx="238" cy="88" r="3"/><text class="lbl" x="92" y="94">Endocrine</text></g>
+              <g class="lblg" data-region="Lungs and Respiratory"><line class="ldr" x1="404" y1="152" x2="286" y2="158"/><circle class="ldot" cx="286" cy="158" r="3"/><text class="lbl" x="408" y="156">Lungs</text></g>
+              <g class="lblg" data-region="Heart and Vascular"><line class="ldr" x1="96" y1="162" x2="234" y2="160"/><circle class="ldot" cx="234" cy="160" r="3"/><text class="lbl" x="92" y="166">Heart &amp; Vascular</text></g>
+              <g class="lblg" data-region="Digestive and Abdomen"><line class="ldr" x1="404" y1="228" x2="278" y2="230"/><circle class="ldot" cx="278" cy="230" r="3"/><text class="lbl" x="408" y="232">Digestive</text></g>
+              <g class="lblg" data-region="Kidney and Genitourinary"><line class="ldr" x1="96" y1="240" x2="206" y2="228"/><circle class="ldot" cx="206" cy="228" r="3"/><text class="lbl" x="92" y="244">Kidneys &amp; GU</text></g>
+              <g class="lblg" data-region="Reproductive and Breast"><line class="ldr" x1="404" y1="288" x2="268" y2="287"/><circle class="ldot" cx="268" cy="287" r="3"/><text class="lbl" x="408" y="292">Reproductive</text></g>
             </g>
           </svg>
           <div class="figcap" id="figcap">Tap a region</div>
@@ -794,6 +907,18 @@ footer{border-top:1px solid var(--line-soft);padding:44px 0 60px;margin-top:44px
     </div>
   </div>
 </footer>
+
+<!-- floating support: small, persistent, dismissible -->
+<div class="fab" id="fab">
+  <div class="fabpop" id="fabpop" hidden>
+    <button class="fabx" id="fabx" aria-label="Hide support options">✕</button>
+    <b>Keep it free</b>
+    <p>No ads. No paywall. Ever. If it helped, either of these keeps the lights on.</p>
+    <a class="btn pri" href="#" id="coffeeLink2" target="_blank" rel="noopener">☕️ Buy a coffee</a>
+    <a class="btn" href="#" id="donateLink2" target="_blank" rel="noopener">🎗️ Give to a local vet org</a>
+  </div>
+  <button class="fabbtn" id="fabbtn" aria-label="Support ClaimAtlas" aria-expanded="false">☕️<span>Support</span></button>
+</div>
 
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle">
@@ -1015,6 +1140,8 @@ function setMap(m){
   $("#segInt").setAttribute("aria-selected", m === "int");
   $("#gExt").style.display = m === "ext" ? "" : "none";
   $("#gInt").style.display = m === "int" ? "" : "none";
+  $("#lblExt").style.display = m === "ext" ? "" : "none";
+  $("#lblInt").style.display = m === "int" ? "" : "none";
   $("#figure").classList.toggle("int", m === "int");
   renderList();
   hoverRegion(null);
@@ -1321,6 +1448,39 @@ $("#coverageNote").textContent =
   + META.removedEntries + " that VA has removed but which still appear on older rating decisions. "
   + "The catalog was parsed on " + META.generatedOn + " from Title 38 as amended " + META.lastAmended
   + ". It has not been independently audited. Anything that matters, check on eCFR.";
+
+/* labels on the figure behave like the zones they name */
+$$("#figure .lblg").forEach(function(g){
+  g.style.color = col(g.dataset.region);
+  g.addEventListener("click", function(){ selectRegion(g.dataset.region); });
+  g.addEventListener("mouseenter", function(){ hoverRegion(g.dataset.region); });
+  g.addEventListener("mouseleave", function(){ hoverRegion(null); });
+});
+
+/* quick search chips */
+$$("#quickchips .chip").forEach(function(b){
+  b.addEventListener("click", function(){
+    qEl.value = b.dataset.q;
+    qEl.dispatchEvent(new Event("input", { bubbles:true }));
+    var y = $("#resultsSection").getBoundingClientRect().top + window.pageYOffset - 66;
+    window.scrollTo({ top:y, behavior:"smooth" });
+  });
+});
+
+/* floating support */
+$("#coffeeLink2").href = SUPPORT_LINKS.coffee;
+$("#donateLink2").href = SUPPORT_LINKS.donate;
+if (sget("fabHidden", false)) $("#fab").classList.add("hidden");
+$("#fabbtn").addEventListener("click", function(){
+  var pop = $("#fabpop");
+  pop.hidden = !pop.hidden;
+  $("#fabbtn").setAttribute("aria-expanded", String(!pop.hidden));
+});
+$("#fabx").addEventListener("click", function(){
+  $("#fab").classList.add("hidden");
+  sset("fabHidden", true);
+  toast("Hidden — support links stay on the About page");
+});
 
 renderList();
 renderCalc();
